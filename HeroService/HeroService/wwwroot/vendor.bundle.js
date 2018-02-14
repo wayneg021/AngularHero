@@ -2189,6 +2189,20 @@ function merge() {
 
 /***/ }),
 
+/***/ "../../../../rxjs/_esm5/observable/of.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return of; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ArrayObservable__ = __webpack_require__("../../../../rxjs/_esm5/observable/ArrayObservable.js");
+/** PURE_IMPORTS_START ._ArrayObservable PURE_IMPORTS_END */
+
+var of = __WEBPACK_IMPORTED_MODULE_0__ArrayObservable__["a" /* ArrayObservable */].of;
+//# sourceMappingURL=of.js.map 
+
+
+/***/ }),
+
 /***/ "../../../../rxjs/_esm5/operator/map.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
