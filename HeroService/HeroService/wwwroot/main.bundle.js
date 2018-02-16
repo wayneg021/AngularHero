@@ -136,12 +136,14 @@ var AppComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__hero_service__ = __webpack_require__("../../../../../src/app/hero.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_routing_module__ = __webpack_require__("../../../../../src/app/app-routing.module.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__dashboard_dashboard_component__ = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__hero_search_hero_search_component__ = __webpack_require__("../../../../../src/app/hero-search/hero-search.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -164,7 +166,8 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_5__heroes_heroes_component__["a" /* HeroesComponent */],
                 __WEBPACK_IMPORTED_MODULE_6__hero_detail_hero_detail_component__["a" /* HeroDetailComponent */],
                 __WEBPACK_IMPORTED_MODULE_8__messages_messages_component__["a" /* MessagesComponent */],
-                __WEBPACK_IMPORTED_MODULE_11__dashboard_dashboard_component__["a" /* DashboardComponent */]
+                __WEBPACK_IMPORTED_MODULE_11__dashboard_dashboard_component__["a" /* DashboardComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__hero_search_hero_search_component__["a" /* HeroSearchComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -207,7 +210,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Top Heroes</h3>\n<div class=\"grid grid-pad\">\n  <a *ngFor=\"let hero of heroes\" class=\"col-1-4\"\n      routerLink=\"/detail/{{hero.id}}\">\n    <div class=\"module hero\">\n      <h4>{{hero.name}}</h4>\n    </div>  \n  </a>\n</div>\n"
+module.exports = "<h3>Top Heroes</h3>\n<div class=\"grid grid-pad\">\n  <a *ngFor=\"let hero of heroes\" class=\"col-1-4\"\n      routerLink=\"/detail/{{hero.id}}\">\n    <div class=\"module hero\">\n      <h4>{{hero.name}}</h4>\n    </div>  \n  </a>\n</div>\n\n<app-hero-search></app-hero-search>\n"
 
 /***/ }),
 
@@ -278,7 +281,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/hero-detail/hero-detail.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"hero\">\n  <h2>{{hero.name | uppercase }} Details</h2>\n  <div><span>id: </span>{{hero.id}}</div>\n  <div>\n    <label>name:\n      <input [(ngModel)]=\"hero.name\" placeholder=\"name\"/>\n    </label>\n  </div>\n  <button (click)=\"goBack()\">go back</button>\n</div>\n"
+module.exports = "<div *ngIf=\"hero\">\n  <h2>{{hero.name | uppercase }} Details</h2>\n  <div><span>id: </span>{{hero.id}}</div>\n  <div>\n    <label>name:\n      <input [(ngModel)]=\"hero.name\" placeholder=\"name\"/>\n    </label>\n  </div>\n  <button (click)=\"goBack()\">go back</button>\n  <button (click)=\"save()\">save</button>\n</div>\n"
 
 /***/ }),
 
@@ -324,6 +327,11 @@ var HeroDetailComponent = (function () {
     HeroDetailComponent.prototype.goBack = function () {
         this.location.back();
     };
+    HeroDetailComponent.prototype.save = function () {
+        var _this = this;
+        this.heroSerive.updateHero(this.hero)
+            .subscribe(function () { return _this.goBack(); });
+    };
     __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* Input */])(),
         __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__hero__["a" /* Hero */])
@@ -339,6 +347,87 @@ var HeroDetailComponent = (function () {
             __WEBPACK_IMPORTED_MODULE_3__angular_common__["f" /* Location */]])
     ], HeroDetailComponent);
     return HeroDetailComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/hero-search/hero-search.component.css":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/* HeroSearch private styles */\r\n.search-result li {\r\n    border-bottom: 1px solid gray;\r\n    border-left: 1px solid gray;\r\n    border-right: 1px solid gray;\r\n    width:195px;\r\n    height: 16px;\r\n    padding: 5px;\r\n    background-color: white;\r\n    cursor: pointer;\r\n    list-style-type: none;\r\n  }\r\n.search-result li:hover {\r\n    background-color: #607D8B;\r\n  }\r\n.search-result li a {\r\n    color: #888;\r\n    display: block;\r\n    text-decoration: none;\r\n  }\r\n.search-result li a:hover {\r\n    color: white;\r\n  }\r\n.search-result li a:active {\r\n    color: white;\r\n  }\r\n#search-box {\r\n    width: 200px;\r\n    height: 20px;\r\n  }\r\nul.search-result {\r\n    margin-top: 0;\r\n    padding-left: 0;\r\n  }", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/hero-search/hero-search.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"search-component\">\n  <h4>Hero Search</h4>\n\n  <input #searchBox id=\"search-box\" (keyup)=\"search(searchBox.value)\" />\n\n  <ul class=\"search-result\">\n    <li *ngFor=\"let hero of heroes$ | async\" >\n      <a routerLink=\"/detail/{{hero.id}}\">\n        {{hero.name}}\n      </a>\n    </li>\n  </ul>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/hero-search/hero-search.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HeroSearchComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_operators__ = __webpack_require__("../../../../rxjs/_esm5/operators.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__hero_service__ = __webpack_require__("../../../../../src/app/hero.service.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var HeroSearchComponent = (function () {
+    function HeroSearchComponent(heroService) {
+        this.heroService = heroService;
+        this.searchTerms = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["a" /* Subject */]();
+    }
+    // Push a search term into the observable stream.
+    HeroSearchComponent.prototype.search = function (term) {
+        this.searchTerms.next(term);
+    };
+    HeroSearchComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.heroes$ = this.searchTerms.pipe(
+        // wait 300ms after each keystroke before considering the term
+        Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["b" /* debounceTime */])(300), 
+        // ignore new term if same as previous term
+        Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["c" /* distinctUntilChanged */])(), 
+        // switch to new search observable each time the term changes
+        Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_operators__["d" /* switchMap */])(function (term) { return _this.heroService.searchHeroes(term); }));
+    };
+    HeroSearchComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-hero-search',
+            template: __webpack_require__("../../../../../src/app/hero-search/hero-search.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/hero-search/hero-search.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__hero_service__["a" /* HeroService */]])
+    ], HeroSearchComponent);
+    return HeroSearchComponent;
 }());
 
 
@@ -369,6 +458,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+var httpOptions = {
+    headers: new __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["c" /* HttpHeaders */]({ 'Content-Type': 'application/json' })
+};
 var HeroService = (function () {
     function HeroService(http, messageService) {
         this.http = http;
@@ -378,12 +470,34 @@ var HeroService = (function () {
     HeroService.prototype.getHeroes = function () {
         var _this = this;
         return this.http.get(this.heroesUrl)
-            .pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["b" /* tap */])(function (heroes) { return _this.log("fetched heroes"); }), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["a" /* catchError */])(this.handleError('getHeroes', [])));
+            .pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["e" /* tap */])(function (heroes) { return _this.log("fetched heroes"); }), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["a" /* catchError */])(this.handleError('getHeroes', [])));
     };
     HeroService.prototype.getHero = function (id) {
         var _this = this;
         var url = this.heroesUrl + "/" + id;
-        return this.http.get(url).pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["b" /* tap */])(function (_) { return _this.log("fetched hero id=" + id); }), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["a" /* catchError */])(this.handleError("getHero id=" + id)));
+        return this.http.get(url).pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["e" /* tap */])(function (_) { return _this.log("fetched hero id=" + id); }), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["a" /* catchError */])(this.handleError("getHero id=" + id)));
+    };
+    HeroService.prototype.addHero = function (hero) {
+        var _this = this;
+        return this.http.post(this.heroesUrl, hero, httpOptions).pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["e" /* tap */])(function (h) { return _this.log("added hero w/ id=" + hero.id); }), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["a" /* catchError */])(this.handleError('addHero')));
+    };
+    HeroService.prototype.deleteHero = function (hero) {
+        var _this = this;
+        var id = typeof hero === 'number' ? hero : hero.id;
+        var url = this.heroesUrl + "/" + id;
+        return this.http.delete(url, httpOptions).pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["e" /* tap */])(function (_) { return _this.log("deleted hero id=" + id); }), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["a" /* catchError */])(this.handleError('deletedHero')));
+    };
+    HeroService.prototype.updateHero = function (hero) {
+        var _this = this;
+        return this.http.put(this.heroesUrl, hero, httpOptions).pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["e" /* tap */])(function (_) { return _this.log("updated hero id=" + hero.id); }), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["a" /* catchError */])(this.handleError('updateHero')));
+    };
+    HeroService.prototype.searchHeroes = function (term) {
+        var _this = this;
+        if (!term.trim()) {
+            // if not search term, return empty hero array.
+            return Object(__WEBPACK_IMPORTED_MODULE_2_rxjs_observable_of__["a" /* of */])([]);
+        }
+        return this.http.get("api/heroes/?name=" + term).pipe(Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["e" /* tap */])(function (_) { return _this.log("found heroes matching \"" + term + "\""); }), Object(__WEBPACK_IMPORTED_MODULE_3_rxjs_operators__["a" /* catchError */])(this.handleError('searchHeroes', [])));
     };
     HeroService.prototype.handleError = function (operation, result) {
         var _this = this;
@@ -435,7 +549,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* HeroesComponent's private CSS styles */\r\n.heroes {\r\n    margin: 0 0 2em 0;\r\n    list-style-type: none;\r\n    padding: 0;\r\n    width: 15em;\r\n  }\r\n.heroes li {\r\n    position: relative;\r\n    cursor: pointer;\r\n    background-color: #EEE;\r\n    margin: .5em;\r\n    padding: .3em 0;\r\n    height: 1.6em;\r\n    border-radius: 4px;\r\n  }\r\n.heroes li:hover {\r\n    color: #607D8B;\r\n    background-color: #DDD;\r\n    left: .1em;\r\n  }\r\n.heroes a {\r\n    color: #888;\r\n    text-decoration: none;\r\n    position: relative;\r\n    display: block;\r\n    width: 250px;\r\n  }\r\n.heroes a:hover {\r\n    color:#607D8B;\r\n  }\r\n.heroes .badge {\r\n    display: inline-block;\r\n    font-size: small;\r\n    color: white;\r\n    padding: 0.8em 0.7em 0 0.7em;\r\n    background-color: #607D8B;\r\n    line-height: 1em;\r\n    position: relative;\r\n    left: -1px;\r\n    top: -4px;\r\n    height: 1.8em;\r\n    min-width: 16px;\r\n    text-align: right;\r\n    margin-right: .8em;\r\n    border-radius: 4px 0 0 4px;\r\n  }", ""]);
+exports.push([module.i, "/* HeroesComponent's private CSS styles */\r\n.heroes {\r\n  margin: 0 0 2em 0;\r\n  list-style-type: none;\r\n  padding: 0;\r\n  width: 15em;\r\n}\r\n.heroes li {\r\n  position: relative;\r\n  cursor: pointer;\r\n  background-color: #EEE;\r\n  margin: .5em;\r\n  padding: .3em 0;\r\n  height: 1.6em;\r\n  border-radius: 4px;\r\n}\r\n.heroes li:hover {\r\n  color: #607D8B;\r\n  background-color: #DDD;\r\n  left: .1em;\r\n}\r\n.heroes a {\r\n  color: #888;\r\n  text-decoration: none;\r\n  position: relative;\r\n  display: block;\r\n  width: 250px;\r\n}\r\n.heroes a:hover {\r\n  color:#607D8B;\r\n}\r\n.heroes .badge {\r\n  display: inline-block;\r\n  font-size: small;\r\n  color: white;\r\n  padding: 0.8em 0.7em 0 0.7em;\r\n  background-color: #607D8B;\r\n  line-height: 1em;\r\n  position: relative;\r\n  left: -1px;\r\n  top: -4px;\r\n  height: 1.8em;\r\n  min-width: 16px;\r\n  text-align: right;\r\n  margin-right: .8em;\r\n  border-radius: 4px 0 0 4px;\r\n}\r\n.button {\r\n  background-color: #eee;\r\n  border: none;\r\n  padding: 5px 10px;\r\n  border-radius: 4px;\r\n  cursor: pointer;\r\n  cursor: hand;\r\n  font-family: Arial;\r\n}\r\nbutton:hover {\r\n  background-color: #cfd8dc;\r\n}\r\nbutton.delete {\r\n  position: relative;\r\n  left: 194px;\r\n  top: -32px;\r\n  background-color: gray !important;\r\n  color: white;\r\n}", ""]);
 
 // exports
 
@@ -448,7 +562,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/heroes/heroes.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<h2>My Heroes</h2>\n<ul class=\"heroes\">\n  <li *ngFor=\"let hero of heroes\">\n    <a routerLink=\"/detail/{{hero.id}}\">\n      <span class=\"badge\">{{hero.id}}</span> {{hero.name}}\n    </a>\n  </li>\n</ul>"
+module.exports = "<h2>My Heroes</h2>\n\n<div>\n  <label>Hero Name:\n    <input #heroName />\n  </label>\n  <button (click)=\"add(heroName.value); heroName.value=''\">\n    add\n  </button>\n</div>\n<ul class=\"heroes\">\n  <li *ngFor=\"let hero of heroes\">\n    <a routerLink=\"/detail/{{hero.id}}\">\n      <span class=\"badge\">{{hero.id}}</span> {{hero.name}}\n    </a>\n    <button class=\"delete\" title=\"delete hero\"\n    (click)=\"delete(hero)\">x</button>\n  </li>\n</ul>"
 
 /***/ }),
 
@@ -481,6 +595,21 @@ var HeroesComponent = (function () {
         var _this = this;
         this.heroService.getHeroes()
             .subscribe(function (heroes) { return _this.heroes = heroes; });
+    };
+    HeroesComponent.prototype.add = function (name) {
+        var _this = this;
+        name = name.trim();
+        if (!name) {
+            return;
+        }
+        this.heroService.addHero({ name: name })
+            .subscribe(function (hero) {
+            _this.heroes.push(hero);
+        });
+    };
+    HeroesComponent.prototype.delete = function (hero) {
+        this.heroes = this.heroes.filter(function (h) { return h !== hero; });
+        this.heroService.deleteHero(hero).subscribe();
     };
     HeroesComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({

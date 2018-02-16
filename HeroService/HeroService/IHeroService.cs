@@ -10,5 +10,13 @@ namespace HeroService
         List<Hero> GetHeroes();
 
         Hero GetHero(int Id);
+
+        List<Hero> GetHeroes(string name);
+
+        void UpdateHero(Hero hero);
+
+        Hero CreateHero(Hero hero);
+
+        Hero DeleteHero(int Id);
     }
 }
